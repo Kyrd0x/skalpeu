@@ -1,0 +1,70 @@
+;
+; Skalpeu.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=USBDevice
+ClassGuid={88BAE032-5A81-49f0-BC3D-A4FF138216D6}
+Provider=%ManufacturerName%
+CatalogFile=Skalpeu.cat
+DriverVer=
+PnpLockDown=1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+Skalpeu.sys  = 1,,
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$.10.0...16299 ; %13% support introduced in build 16299
+
+[Standard.NT$ARCH$.10.0...16299]
+%Skalpeu.DeviceDesc%=Skalpeu_Device, USB\VID_vvvv&PID_pppp
+
+[Skalpeu_Device.NT]
+CopyFiles=File_Copy
+
+[File_Copy]
+Skalpeu.sys
+
+[Skalpeu_Device.NT.HW]
+AddReg=Skalpeu_AddReg
+
+[Skalpeu_AddReg]
+; By default, USBDevice class uses iProduct descriptor to name the device
+; Uncomment for this device to use %Skalpeu.DeviceDesc%
+;HKR,,FriendlyName,,%Skalpeu.DeviceDesc%
+
+;-------------- Service installation
+[Skalpeu_Device.NT.Services]
+AddService = Skalpeu,%SPSVCINST_ASSOCSERVICE%, Skalpeu_Service_Inst
+
+; -------------- Skalpeu driver install sections
+[Skalpeu_Service_Inst]
+DisplayName    = %Skalpeu.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %13%\Skalpeu.sys
+
+[Skalpeu_Device.NT.Wdf]
+KmdfService =  Skalpeu, Skalpeu_wdfsect
+
+[Skalpeu_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+DiskName = "Skalpeu Installation Disk"
+Skalpeu.DeviceDesc = "Skalpeu Device"
+Skalpeu.SVCDESC = "Skalpeu Service"
