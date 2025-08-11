@@ -25,6 +25,7 @@ kernel debugging setup:
 - host: Windbg + Secure Boot off + ```bcdedit /debug on``` & ```bcdedit /dbgsettings serial debugport:2 baudrate:115200```
 And WinDBG as admin -> attach to kernel and:  
 ![WinDBG Setup](.imgs/windbg_setup.png)
+- Get kdmapper
 
 ## Sources
 
