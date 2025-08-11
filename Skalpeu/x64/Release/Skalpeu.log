@@ -1,6 +1,6 @@
 ﻿  Building 'Driver' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Release\Skalpeu.inf
-  Stamping [Version] section with DriverVer=08/11/2025,19.14.24.195
+  Stamping [Version] section with DriverVer=08/11/2025,19.18.47.84
   Skalpeu.vcxproj -> C:\Users\Couscouz\Documents\shared\projets\skalpeu\Skalpeu\x64\Release\Skalpeu.sys
   Driver is 'Universal'.
   .........................

@@ -1,4 +1,9 @@
-soluces/
 
 .env
 env/
+
+# Visual Studio
+Skalpeu/.vs/
+
+
+soluces/
