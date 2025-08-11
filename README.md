@@ -16,12 +16,15 @@ host setup:
 - Visual Studio -> add Windows Driver Kit from indiv packet
 
 guest setup:
-- Win11 VM
-
+- Win11 VM with all security protections disabled
+- Device Security -> Core isolation -> all 3 -> OFF
 
 kernel debugging setup:
 - Serial port on the VM (with named pipe ```\\.\pipe\com_2```, this end is the server, the other end is an application)
-- Windbg on the host
+- guest: System configuration -> Debug on ```COM2``` & ```Baud Rate``` to ```115200```
+- host: Windbg + Secure Boot off + ```bcdedit /debug on``` & ```bcdedit /dbgsettings serial debugport:2 baudrate:115200```
+And WinDBG as admin -> attach to kernel and:  
+![WinDBG Setup](.imgs/windbg_setup.png)
 
 ## Sources
 
